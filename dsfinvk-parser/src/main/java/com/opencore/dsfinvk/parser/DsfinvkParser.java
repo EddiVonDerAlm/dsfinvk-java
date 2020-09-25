@@ -2,22 +2,18 @@ package com.opencore.dsfinvk.parser;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.groups.Default;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.opencore.dsfinvk.models.einzelaufzeichnung.BonReferenzen;
-import com.opencore.dsfinvk.models.einzelaufzeichnung.bonkopf.Bonkopf;
-import com.opencore.dsfinvk.models.einzelaufzeichnung.bonkopf.BonkopfAbrKreis;
-import com.opencore.dsfinvk.models.einzelaufzeichnung.bonkopf.BonkopfUst;
-import com.opencore.dsfinvk.models.einzelaufzeichnung.bonkopf.BonkopfZahlarten;
-import com.opencore.dsfinvk.models.einzelaufzeichnung.bonkopf.TseTransaktionen;
+import com.opencore.dsfinvk.models.einzelaufzeichnung.bonkopf.*;
 import com.opencore.dsfinvk.models.einzelaufzeichnung.bonpos.Bonpos;
 import com.opencore.dsfinvk.models.einzelaufzeichnung.bonpos.BonposPreisfindung;
 import com.opencore.dsfinvk.models.einzelaufzeichnung.bonpos.BonposUst;
@@ -25,27 +21,19 @@ import com.opencore.dsfinvk.models.einzelaufzeichnung.bonpos.BonposZusatzinfo;
 import com.opencore.dsfinvk.models.kassenabschluss.ZGVTyp;
 import com.opencore.dsfinvk.models.kassenabschluss.ZWaehrungen;
 import com.opencore.dsfinvk.models.kassenabschluss.ZZahlart;
-import com.opencore.dsfinvk.models.stammdaten.StammAbschluss;
-import com.opencore.dsfinvk.models.stammdaten.StammAgenturen;
-import com.opencore.dsfinvk.models.stammdaten.StammKassen;
-import com.opencore.dsfinvk.models.stammdaten.StammOrte;
-import com.opencore.dsfinvk.models.stammdaten.StammTerminals;
-import com.opencore.dsfinvk.models.stammdaten.StammUst;
+import com.opencore.dsfinvk.models.stammdaten.*;
 import com.opencore.gdpdu.common.exceptions.ParsingException;
 import com.opencore.gdpdu.data.GdpduDataParser;
 import com.opencore.gdpdu.index.GdpduIndexParser;
 import com.opencore.gdpdu.index.models.DataSet;
 import com.opencore.gdpdu.index.models.Media;
 import com.opencore.gdpdu.index.models.Table;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DsfinvkParser {
 
   private static final Logger LOG = LoggerFactory.getLogger(DsfinvkParser.class);
 
   private static final Map<String, Class<?>> TABLE_MAP = new HashMap<>();
-  private static final GdpduDataParser GDPDU_DATA_PARSER = new GdpduDataParser();
 
   public static void parseAndValidate(String indexXmlFile) throws IOException, ParsingException {
     parseAndValidate(new File(Objects.requireNonNull(indexXmlFile)));
@@ -53,7 +41,7 @@ public class DsfinvkParser {
 
   public static void parseAndValidate(File indexXmlFile) throws IOException, ParsingException {
     Objects.requireNonNull(indexXmlFile);
-    DataSet index = GdpduIndexParser.parseXmlFile(indexXmlFile, GdpduIndexParser.ParseMode.LENIENT);
+    DataSet index = GdpduIndexParser.parseXmlFile(indexXmlFile);
 
     for (Media media : index.getMedia()) {
       for (Table table : media.getTables()) {
@@ -93,7 +81,7 @@ public class DsfinvkParser {
   }
 
   public static <T> List<T> parseTable(File indexXml, String tableName, Class<T> clazz) throws ParsingException {
-    return GDPDU_DATA_PARSER.parseTable(indexXml, tableName, clazz);
+      return GdpduDataParser.parseTable(indexXml, tableName, clazz);
   }
 
   public static Class<?> getClassForFilename(String fileName) {
