@@ -14,6 +14,7 @@ public class StammAbschlussValidator implements ConstraintValidator<ValidStammAb
     }
 
     // TODO: The specs say "either ... or" but I've implemented "or". Needs clarification.
-    return !value.getStnr().isBlank() || !value.getUstid().isBlank();
+    return  ((value.getStnr() != null) && (! value.getStnr().isBlank())) ||
+             ((value.getUstid() != null) && (! value.getUstid().isBlank()));
   }
 }
