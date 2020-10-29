@@ -2,11 +2,8 @@ package com.opencore.dsfinvk.models.einzelaufzeichnung.bonpos;
 
 import java.math.BigDecimal;
 import java.util.StringJoiner;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
+
+import javax.validation.constraints.*;
 
 import com.opencore.dsfinvk.models.GvTyp;
 import com.opencore.gdpdu.index.annotations.Column;
@@ -58,7 +55,6 @@ public class Bonpos extends BaseBonpos {
   @Column(value = "AGENTUR_ID", type = DataType.Numeric)
   private Long agenturId;
 
-  @NotBlank
   @Size(max = 50)
   @Column(value = "ART_NR", type = DataType.AlphaNumeric)
   private String artNr;

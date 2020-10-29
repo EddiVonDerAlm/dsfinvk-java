@@ -2,6 +2,7 @@ package com.opencore.dsfinvk.models.einzelaufzeichnung.bonpos;
 
 import java.math.BigDecimal;
 import java.util.StringJoiner;
+
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -10,7 +11,7 @@ import com.opencore.dsfinvk.util.ValidUstSchluessel;
 import com.opencore.gdpdu.index.annotations.Column;
 import com.opencore.gdpdu.index.models.DataType;
 
-// TODO: Validator, dass entweder brutto oder (netto + ust) gesetzt ist
+// TODO: Validator, dass entweder brutto = (netto + ust) gesetzt ist
 
 /**
  * Für jede Position werden in dieser Datei die Informationen zu den verwendeten USt-Sätzen festgehalten.
@@ -26,14 +27,17 @@ public class BonposUst extends BaseBonpos {
   @Column(value = "UST_SCHLUESSEL", type = DataType.Numeric)
   private Long ustSchluessel;
 
+  @NotNull
   @Digits(integer = Integer.MAX_VALUE, fraction = 5)
   @Column(value = "POS_BRUTTO", type = DataType.Numeric)
   private BigDecimal posBrutto;
 
+  @NotNull
   @Digits(integer = Integer.MAX_VALUE, fraction = 5)
   @Column(value = "POS_NETTO", type = DataType.Numeric)
   private BigDecimal posNetto;
 
+  @NotNull
   @Digits(integer = Integer.MAX_VALUE, fraction = 5)
   @Column(value = "POS_UST", type = DataType.Numeric)
   private BigDecimal posUst;

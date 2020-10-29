@@ -111,7 +111,7 @@ public class DsfinvkParser {
     TABLE_MAP.put(StammKassen.FILENAME, StammKassen.class);
     TABLE_MAP.put(StammOrte.FILENAME, StammOrte.class);
     TABLE_MAP.put(StammTerminals.FILENAME, StammTerminals.class);
-    //TABLE_MAP.put(StammTse.F)
+    TABLE_MAP.put(StammTse.FILENAME, StammTse.class);
     TABLE_MAP.put(StammUst.FILENAME, StammUst.class);
   }
 

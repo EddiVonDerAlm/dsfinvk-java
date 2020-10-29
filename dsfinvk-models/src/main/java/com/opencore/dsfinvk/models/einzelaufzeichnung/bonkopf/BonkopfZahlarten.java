@@ -2,8 +2,8 @@ package com.opencore.dsfinvk.models.einzelaufzeichnung.bonkopf;
 
 import java.math.BigDecimal;
 import java.util.StringJoiner;
+
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -25,7 +25,7 @@ public class BonkopfZahlarten extends BaseBon {
   private String zahlartName;
 
   // TODO: Das sollte eigentlich eher direkt ein Currency Feld sein
-  @NotBlank
+  //@NotBlank darf null sein: Währung der verwendeten Zahlart, wenn die verwendete Währung von der Basiswäh-rung abweicht.
   @Size(max = 3)
   @ValidIso4217Currency
   @Column(value = "ZAHLWAEH_CODE", type = DataType.AlphaNumeric)

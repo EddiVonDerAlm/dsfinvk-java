@@ -3,6 +3,7 @@ package com.opencore.dsfinvk.models.einzelaufzeichnung.bonkopf;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.StringJoiner;
+
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import javax.validation.constraints.Size;
 
 import com.opencore.dsfinvk.models.einzelaufzeichnung.BaseBon;
 import com.opencore.dsfinvk.util.StrictGroup;
+import com.opencore.dsfinvk.util.ValidBonkopf;
 import com.opencore.dsfinvk.util.ValidIso3166Alpha3Country;
 import com.opencore.dsfinvk.util.ValidVatId;
 import com.opencore.gdpdu.index.annotations.Column;
@@ -35,11 +37,12 @@ import com.opencore.gdpdu.index.models.DataType;
  * </ul>
  * Zusätzlich ist in der DSFinV-K auch der Umsatz (brutto) auszuweisen.
  */
+@ValidBonkopf
 public class Bonkopf extends BaseBon {
 
   public static final String FILENAME = "transactions.csv";
 
-  @NotNull
+  //@NotNull  maybe null in case of AVBelegabbruch. No bon_nr was created, because no receipt was printed/generated
   @Column(value = "BON_NR", type = DataType.Numeric)
   private Long bonNr;
 
@@ -68,7 +71,6 @@ public class Bonkopf extends BaseBon {
   private LocalDateTime bonEnde;
 
   @Size(max = 50)
-  @NotBlank
   @Column(value = "BEDIENER_ID", type = DataType.AlphaNumeric)
   private String bedienerId;
 

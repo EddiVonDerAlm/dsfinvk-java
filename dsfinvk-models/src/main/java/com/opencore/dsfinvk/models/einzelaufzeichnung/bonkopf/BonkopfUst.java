@@ -2,11 +2,12 @@ package com.opencore.dsfinvk.models.einzelaufzeichnung.bonkopf;
 
 import java.math.BigDecimal;
 import java.util.StringJoiner;
+
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 
 import com.opencore.dsfinvk.models.einzelaufzeichnung.BaseBon;
-import com.opencore.dsfinvk.util.ValidVatId;
+import com.opencore.dsfinvk.util.ValidUstSchluessel;
 import com.opencore.gdpdu.index.annotations.Column;
 import com.opencore.gdpdu.index.models.DataType;
 
@@ -19,33 +20,33 @@ public class BonkopfUst extends BaseBon {
   public static final String FILENAME = "transactions_vat.csv";
 
   @NotNull
-  @ValidVatId
+  @ValidUstSchluessel
   @Column(value = "UST_SCHLUESSEL", type = DataType.Numeric)
-  private String ustSchluessel;
+  private Long ustSchluessel;
 
   @NotNull
-  @Digits(integer = Integer.MAX_VALUE, fraction = 2)
+  @Digits(integer = Integer.MAX_VALUE, fraction = 5)
   @Column(value = "BON_BRUTTO", type = DataType.Numeric)
   private BigDecimal bonBrutto;
 
   @NotNull
-  @Digits(integer = Integer.MAX_VALUE, fraction = 2)
+  @Digits(integer = Integer.MAX_VALUE, fraction = 5)
   @Column(value = "BON_NETTO", type = DataType.Numeric)
   private BigDecimal bonNetto;
 
   @NotNull
-  @Digits(integer = Integer.MAX_VALUE, fraction = 2)
+  @Digits(integer = Integer.MAX_VALUE, fraction = 5)
   @Column(value = "BON_UST", type = DataType.Numeric)
   private BigDecimal bonUst;
 
   /**
    * ID zum Umsatzsteuersatz (vgl. Tz. 3.2.6 Datei: Stamm_USt)
    */
-  public String getUstSchluessel() {
+  public Long getUstSchluessel() {
     return ustSchluessel;
   }
 
-  public void setUstSchluessel(String ustSchluessel) {
+  public void setUstSchluessel(Long ustSchluessel) {
     this.ustSchluessel = ustSchluessel;
   }
 

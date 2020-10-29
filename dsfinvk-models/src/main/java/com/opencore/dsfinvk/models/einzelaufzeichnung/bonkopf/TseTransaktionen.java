@@ -2,12 +2,15 @@ package com.opencore.dsfinvk.models.einzelaufzeichnung.bonkopf;
 
 import java.time.LocalDateTime;
 import java.util.StringJoiner;
+
 import javax.validation.constraints.NotNull;
 
 import com.opencore.dsfinvk.models.einzelaufzeichnung.BaseBon;
+import com.opencore.dsfinvk.util.ValidTseTransaktionen;
 import com.opencore.gdpdu.index.annotations.Column;
 import com.opencore.gdpdu.index.models.DataType;
 
+@ValidTseTransaktionen
 public class TseTransaktionen extends BaseBon {
 
   public static final String FILENAME = "transactions_tse.csv";
@@ -33,12 +36,10 @@ public class TseTransaktionen extends BaseBon {
   @Column(value = "TSE_TA_VORGANGSART", type = DataType.AlphaNumeric)
   private String tseTaVorgangsart;
 
-  @NotNull
   @Column(value = "TSE_TA_SIGZ", type = DataType.Numeric)
   private Long tseTaSigz;
 
-  @NotNull
-  @Column(value = "TSE_TA_SIG", type = DataType.Numeric)
+  @Column(value = "TSE_TA_SIG", type = DataType.AlphaNumeric)
   private String tseTaSig;
 
   @Column(value = "TSE_TA_FEHLER", type = DataType.AlphaNumeric)

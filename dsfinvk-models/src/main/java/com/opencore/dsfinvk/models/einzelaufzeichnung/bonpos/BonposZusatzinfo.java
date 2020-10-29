@@ -2,8 +2,8 @@ package com.opencore.dsfinvk.models.einzelaufzeichnung.bonpos;
 
 import java.math.BigDecimal;
 import java.util.StringJoiner;
+
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
@@ -16,7 +16,6 @@ public class BonposZusatzinfo extends BaseBonpos {
 
   public static final String FILENAME = "subitems.csv";
 
-  @NotBlank
   @Size(max = 50)
   @Column(value = "ZI_ART_NR", type = DataType.AlphaNumeric)
   private String ziArtNr;
